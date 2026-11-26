@@ -107,6 +107,39 @@
   }
 
   #features .panel { --p-h: 300px; }
+  /* демо: результат настоящей программы на вымышленных документах (demo/data.json) */
+  .demo { margin-top: var(--s-7); align-items: start; }
+  .demo__side { display: grid; gap: var(--s-4); align-content: start; }
+  .demo__docs { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+  .demo__docs li { display: flex; gap: var(--s-3); align-items: center; padding: var(--s-2) 0; border-bottom: 1px solid rgb(17 17 17 / .1); }
+  .demo__docs small { display: block; color: var(--muted, #6b6b6b); font-size: 14px; }
+  .demo__status { margin: 0; min-height: 24px; }
+  .demo__list { display: grid; gap: var(--s-2); max-height: 236px; overflow: auto; }
+  .demo__item { display: grid; gap: 2px; text-align: left; padding: var(--s-3) var(--s-4); border: 1px solid rgb(17 17 17 / .14); border-radius: var(--r-sm); background: var(--g-main); font: inherit; color: inherit; cursor: pointer; }
+  .demo__item[aria-pressed="true"] { border-color: var(--p-action); box-shadow: inset 3px 0 0 var(--p-action); }
+  .demo__sev { font-size: 14px; font-weight: 500; }
+  .demo__item[data-sev="error"] .demo__sev { color: #b3261e; }
+  .demo__item[data-sev="warn"] .demo__sev { color: #8a5a00; }
+  .demo__diff { font-size: 14px; color: var(--muted, #6b6b6b); }
+  .demo__viewer { display: grid; gap: var(--s-3); }
+  .demo__tabs { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+  .demo__tab { min-height: 44px; padding: 0 var(--s-4); border: 1px solid rgb(17 17 17 / .14); border-radius: var(--r-sm); background: var(--g-main); font: inherit; font-size: 14px; color: inherit; cursor: pointer; }
+  .demo__tab[aria-pressed="true"] { border-color: var(--p-action); color: var(--p-action); }
+  .demo__tab:disabled { opacity: .5; cursor: default; }
+  .demo__cap { margin: 0; font-size: 15px; line-height: 1.5; min-height: 68px; }
+  .demo__view { height: 380px; overflow: auto; border: 1px solid rgb(17 17 17 / .14); border-radius: var(--r-md); background: var(--g-alt); }
+  .demo__page { position: relative; }
+  .demo__page img { display: block; width: 100%; height: auto; }
+  .demo__hl { position: absolute; border: 3px solid #ff8c00; background: rgb(255 200 0 / .25); border-radius: 3px; }
+  .demo__sheet { margin: var(--s-3) var(--s-4) 0; font-size: 14px; color: var(--muted, #6b6b6b); }
+  .demo__table { border-collapse: collapse; margin: var(--s-3) var(--s-4) var(--s-4); font: 400 13px/1.3 var(--font-mono); background: #fff; }
+  .demo__table th, .demo__table td { border: 1px solid #e2e2e2; padding: 6px 8px; white-space: nowrap; }
+  .demo__table th { background: #f3f3f3; color: #555; font-weight: 400; }
+  .demo__table tr.is-row td { background: #fff5dc; }
+  .demo__table tr.is-row td.is-cell { background: #1a4be0; color: #fff; }
+  @media (max-width: 1023px) { .demo__view { height: 320px; } }
+  @media (max-width: 639px) { .demo__view { height: 300px; } .demo__list { max-height: 200px; } }
+
   #faq .req { display: grid; gap: var(--s-3); justify-items: start; margin-top: var(--s-5); }
   #faq .req p { margin: 0; } #faq .req b { font-weight: 500; }
   /* «ИмпортКонтроль» — 14 букв: набрано так, чтобы слово вставало в .wrap от края до края */
@@ -132,6 +165,7 @@
       <div class="nav__item"><a class="nav__link" href="#features">Возможности</a></div>
       <div class="nav__item"><a class="nav__link" href="#product">Программа</a></div>
       <div class="nav__item"><a class="nav__link" href="#privacy">Данные</a></div>
+      <div class="nav__item"><a class="nav__link" href="#demo">Пример</a></div>
       <div class="nav__item"><a class="nav__link" href="#faq">Вопросы</a></div>
     </nav>
     <div class="nav__actions">
@@ -365,6 +399,35 @@
   </section>
 
 
+  <section class="section" id="demo" style="--h: 1; --hm: 2" aria-labelledby="demo-h" data-demo>
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="demo-h" class="span-5">Пример проверки за минуту</h2>
+        <p class="span-6 start-7">Три документа одной поставки с вымышленными данными. Нажмите кнопку, затем любое расхождение — откроется место в документе. Ваши файлы на сайт не загружаются.</p>
+      </div>
+      <div class="grid demo">
+        <div class="span-5 demo__side">
+          <ul class="demo__docs">
+            <li><img src="assets/icons/pdf.svg" alt="" width="24" height="24"><span>ЭСФ_СФ-2026-0417.pdf<small>Счёт-фактура</small></span></li>
+            <li><img src="assets/icons/pdf.svg" alt="" width="24" height="24"><span>Накладная_ТН-77.pdf<small>Товарная накладная</small></span></li>
+            <li><img src="assets/icons/xlsx.svg" alt="" width="24" height="24"><span>Выгрузка_1С.xlsx<small>Поступление и товары</small></span></li>
+          </ul>
+          <button class="btn btn--secondary" type="button" data-demo-run>Проверить пример</button>
+          <p class="demo__status" role="status" data-demo-status></p>
+          <div class="demo__list" data-demo-list></div>
+        </div>
+        <div class="span-6 start-7 demo__viewer">
+          <div class="demo__tabs" role="group" aria-label="Источник расхождения">
+            <button type="button" class="demo__tab" data-demo-side="1" disabled>Документ 1</button>
+            <button type="button" class="demo__tab" data-demo-side="2" disabled>Документ 2</button>
+          </div>
+          <p class="demo__cap" data-demo-cap>Здесь появится документ с подсвеченным значением.</p>
+          <div class="demo__view" data-demo-view tabindex="0" aria-label="Источник: страница документа или таблица 1С"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="faq" style="--hm: 2" aria-labelledby="faq-h">
     <div class="wrap">
       <div class="grid grid--top">
@@ -423,5 +486,6 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
+<script type="module" src="demo/demo.js?v=4"></script>
 </body>
 </html>
